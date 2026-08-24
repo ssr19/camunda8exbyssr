@@ -1,0 +1,33 @@
+{
+  "components": [
+    {
+      "label": "orderstatus",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_123x20i",
+        "columns": null
+      },
+      "id": "Field_15tl95g",
+      "key": "status"
+    },
+    {
+      "label": "Button",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_1o5w2mo",
+        "columns": null
+      },
+      "id": "Field_1g6i1pn"
+    }
+  ],
+  "type": "default",
+  "id": "order_approve_usertask_form",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.49.0"
+  },
+  "schemaVersion": 19
+}

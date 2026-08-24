@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_02ktvb6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.49.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.9.0">
+  <bpmn:process id="inclusivegateway_menu_Process_0bj87e7" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1c0tioy</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1c0tioy" sourceRef="StartEvent_1" targetRef="Activity_0x01oyw" />
+    <bpmn:userTask id="Activity_0x01oyw" name="choose menu">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:assignmentDefinition candidateUsers="demo" />
+        <zeebe:formDefinition formId="Menu_Items_Form_14kcxsx" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1c0tioy</bpmn:incoming>
+      <bpmn:outgoing>Flow_0d2zw1v</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0d2zw1v" sourceRef="Activity_0x01oyw" targetRef="Gateway_1ybazi9" />
+    <bpmn:inclusiveGateway id="Gateway_1ybazi9" name="item selected?">
+      <bpmn:incoming>Flow_0d2zw1v</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qyii7n</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0qu07oa</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0pxzyml</bpmn:outgoing>
+    </bpmn:inclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0qyii7n" sourceRef="Gateway_1ybazi9" targetRef="Activity_17l7tmn">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=item = "pasta"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0qu07oa" sourceRef="Gateway_1ybazi9" targetRef="Activity_0ligscm">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=item = "pasta"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0pxzyml" sourceRef="Gateway_1ybazi9" targetRef="Activity_13b6ywh">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=item = "pasta"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:scriptTask id="Activity_13b6ywh" name="pasta">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=item + &#34;selected&#34;" resultVariable="order" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0pxzyml</bpmn:incoming>
+      <bpmn:outgoing>Flow_1cqaxqa</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_17l7tmn" name="burger">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=item + &#34;selected&#34;" resultVariable="order" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0qyii7n</bpmn:incoming>
+      <bpmn:outgoing>Flow_0f48ghn</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_0ligscm" name="pizza">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=item + &#34;selected&#34;" resultVariable="order" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0qu07oa</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kg37dq</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:endEvent id="Event_0adt8bi" name="pasta ready">
+      <bpmn:incoming>Flow_1cqaxqa</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1cqaxqa" sourceRef="Activity_13b6ywh" targetRef="Event_0adt8bi" />
+    <bpmn:endEvent id="Event_0qpx535" name="burger ready">
+      <bpmn:incoming>Flow_0f48ghn</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0f48ghn" sourceRef="Activity_17l7tmn" targetRef="Event_0qpx535" />
+    <bpmn:endEvent id="Event_0xdsi7a" name="pizza ready">
+      <bpmn:incoming>Flow_1kg37dq</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1kg37dq" sourceRef="Activity_0ligscm" targetRef="Event_0xdsi7a" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="inclusivegateway_menu_Process_0bj87e7">
+      <bpmndi:BPMNShape id="Gateway_0mpq3tp_di" bpmnElement="Gateway_1ybazi9">
+        <dc:Bounds x="425" y="225" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="374" y="213" width="71" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0e4n73f_di" bpmnElement="Activity_13b6ywh">
+        <dc:Bounds x="590" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_07iuazz_di" bpmnElement="Activity_17l7tmn">
+        <dc:Bounds x="590" y="210" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17hr8yq_di" bpmnElement="Activity_0ligscm">
+        <dc:Bounds x="590" y="340" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="122" y="232" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_149oh42_di" bpmnElement="Activity_0x01oyw">
+        <dc:Bounds x="230" y="210" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0adt8bi_di" bpmnElement="Event_0adt8bi">
+        <dc:Bounds x="812" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="801" y="145" width="58" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0qpx535_di" bpmnElement="Event_0qpx535">
+        <dc:Bounds x="812" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="799" y="275" width="63" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0xdsi7a_di" bpmnElement="Event_0xdsi7a">
+        <dc:Bounds x="812" y="362" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="802" y="405" width="57" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1c0tioy_di" bpmnElement="Flow_1c0tioy">
+        <di:waypoint x="158" y="250" />
+        <di:waypoint x="230" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0d2zw1v_di" bpmnElement="Flow_0d2zw1v">
+        <di:waypoint x="330" y="250" />
+        <di:waypoint x="425" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qyii7n_di" bpmnElement="Flow_0qyii7n">
+        <di:waypoint x="475" y="250" />
+        <di:waypoint x="590" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qu07oa_di" bpmnElement="Flow_0qu07oa">
+        <di:waypoint x="450" y="275" />
+        <di:waypoint x="450" y="380" />
+        <di:waypoint x="590" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pxzyml_di" bpmnElement="Flow_0pxzyml">
+        <di:waypoint x="450" y="225" />
+        <di:waypoint x="450" y="120" />
+        <di:waypoint x="590" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1cqaxqa_di" bpmnElement="Flow_1cqaxqa">
+        <di:waypoint x="690" y="120" />
+        <di:waypoint x="812" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f48ghn_di" bpmnElement="Flow_0f48ghn">
+        <di:waypoint x="690" y="250" />
+        <di:waypoint x="812" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1kg37dq_di" bpmnElement="Flow_1kg37dq">
+        <di:waypoint x="690" y="380" />
+        <di:waypoint x="812" y="380" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

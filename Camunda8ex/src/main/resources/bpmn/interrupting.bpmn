@@ -1,0 +1,8 @@
+<bpmn:userTask id="reviewOrder" name="Review Order"/>
+<bpmn:boundaryEvent id="timeoutEvent" attachedToRef="reviewOrder">
+  <bpmn:timerEventDefinition>
+    <bpmn:timeDuration>PT5M</bpmn:timeDuration>
+  </bpmn:timerEventDefinition>
+</bpmn:boundaryEvent>
+<bpmn:sequenceFlow sourceRef="timeoutEvent" targetRef="escalateTask"/>
+<bpmn:serviceTask id="escalateTask" name="Escalate to Manager"/>

@@ -1,0 +1,47 @@
+{
+  "components": [
+    {
+      "label": "menu",
+      "values": [
+        {
+          "label": "pasta",
+          "value": "pasta"
+        },
+        {
+          "label": "burger",
+          "value": "burger"
+        },
+        {
+          "label": "pizza",
+          "value": "pizza"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_0s22rr1",
+        "columns": null
+      },
+      "id": "Field_0tf8juk",
+      "key": "item"
+    },
+    {
+      "label": "submit",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_0fv0ior",
+        "columns": null
+      },
+      "id": "Field_052ldht"
+    }
+  ],
+  "type": "default",
+  "id": "Menu_Items_Form_14kcxsx",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.49.0"
+  },
+  "schemaVersion": 19
+}
