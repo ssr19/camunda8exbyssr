@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1n7njnb" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.49.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.9.0">
+  <bpmn:process id="DeliveryMangerApprovalSubProcess_1ey6vuy" isExecutable="true">
+    <bpmn:exclusiveGateway id="Gateway_1wzk245" default="Flow_1seh0t9">
+      <bpmn:incoming>Flow_0ml9qyk</bpmn:incoming>
+      <bpmn:outgoing>Flow_0gu4a2w</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1seh0t9</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0gu4a2w" name="if delivery less than six months" sourceRef="Gateway_1wzk245" targetRef="Activity_1n5gqrb">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(today() + duration(deliverydate)) &lt; (today() + duration("P6M"))</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1rh88cg" sourceRef="Activity_1n5gqrb" targetRef="Activity_1tgpres" />
+    <bpmn:sequenceFlow id="Flow_0ml9qyk" sourceRef="Activity_130n4bv" targetRef="Gateway_1wzk245" />
+    <bpmn:businessRuleTask id="Activity_130n4bv" name="car delivery duration decision">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="Car_booking_delivery_durationDecision_0xrls55" resultVariable="deliverydate" />
+        <zeebe:ioMapping>
+          <zeebe:output source="=deliverydate" target="deliverydate" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1vqj3st</bpmn:incoming>
+      <bpmn:incoming>Flow_0ss2pej</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ml9qyk</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:callActivity id="Activity_1n5gqrb" name="Delivery Manager Approval">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="car_deliverymanager_Activity_0zb3ubo" propagateAllChildVariables="true" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0gu4a2w</bpmn:incoming>
+      <bpmn:outgoing>Flow_1rh88cg</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:subProcess id="Activity_14t9w98">
+      <bpmn:incoming>Flow_1seh0t9</bpmn:incoming>
+      <bpmn:outgoing>Flow_1r8zv64</bpmn:outgoing>
+      <bpmn:startEvent id="Event_1vbcv2l">
+        <bpmn:outgoing>Flow_0nyhr27</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:userTask id="Activity_08ek54x" name="Delivery Supervisor">
+        <bpmn:extensionElements>
+          <zeebe:userTask />
+          <zeebe:assignmentDefinition assignee="demo" />
+          <zeebe:formDefinition formId="Delivery_supervisorForm_1eai15z" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0nyhr27</bpmn:incoming>
+        <bpmn:outgoing>Flow_03e5kyb</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_0nyhr27" sourceRef="Event_1vbcv2l" targetRef="Activity_08ek54x" />
+      <bpmn:endEvent id="Event_0okz1my">
+        <bpmn:incoming>Flow_03e5kyb</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_03e5kyb" sourceRef="Activity_08ek54x" targetRef="Event_0okz1my" />
+    </bpmn:subProcess>
+    <bpmn:sequenceFlow id="Flow_1seh0t9" sourceRef="Gateway_1wzk245" targetRef="Activity_14t9w98" />
+    <bpmn:sequenceFlow id="Flow_1vqj3st" sourceRef="Gateway_095hlo8" targetRef="Activity_130n4bv">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=status = "delivery cancelled"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="Gateway_095hlo8">
+      <bpmn:incoming>Flow_1r8zv64</bpmn:incoming>
+      <bpmn:outgoing>Flow_1vqj3st</bpmn:outgoing>
+      <bpmn:outgoing>Flow_02pnta5</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1r8zv64" sourceRef="Activity_14t9w98" targetRef="Gateway_095hlo8" />
+    <bpmn:sequenceFlow id="Flow_02pnta5" sourceRef="Gateway_095hlo8" targetRef="Event_1ba9g0u">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=status = "Delivery Supervisor Review"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0ss2pej" sourceRef="StartEvent_1" targetRef="Activity_130n4bv" />
+    <bpmn:endEvent id="Event_1ba9g0u">
+      <bpmn:incoming>Flow_02pnta5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_197qrxi" sourceRef="Activity_1tgpres" targetRef="Event_1h5wnne" />
+    <bpmn:endEvent id="Event_1h5wnne" name="Delivery Approved">
+      <bpmn:extensionElements>
+        <zeebe:executionListeners>
+          <zeebe:executionListener eventType="start" />
+        </zeebe:executionListeners>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_197qrxi</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1qn931e" />
+    </bpmn:endEvent>
+    <bpmn:sendTask id="Activity_1tgpres">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" retries="3" />
+        <zeebe:ioMapping>
+          <zeebe:input source="oauth-client-credentials-flow" target="authentication.type" />
+          <zeebe:input target="authentication.oauthTokenEndpoint" />
+          <zeebe:input target="authentication.clientId" />
+          <zeebe:input target="authentication.clientSecret" />
+          <zeebe:input target="authentication.clientAuthentication" />
+          <zeebe:input source="GET" target="method" />
+          <zeebe:input target="url" />
+          <zeebe:input source="=false" target="storeResponse" />
+          <zeebe:input source="=false" target="followRedirects" />
+          <zeebe:input source="=20" target="connectionTimeoutInSeconds" />
+          <zeebe:input source="=20" target="readTimeoutInSeconds" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="elementTemplateVersion" value="13" />
+          <zeebe:header key="elementTemplateId" value="io.camunda.connectors.HttpJson.v2" />
+          <zeebe:header key="resultExpression" value="={&#10;  myResponseBody: response.body&#10;  // Use FEEL to extract values, e.g.,:&#10;  // myUserId: response.body.post.userId&#10;}" />
+          <zeebe:header key="retryBackoff" value="PT0S" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1rh88cg</bpmn:incoming>
+      <bpmn:outgoing>Flow_197qrxi</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements />
+      <bpmn:outgoing>Flow_0ss2pej</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1ups0t0" messageRef="Message_1i6vaof" />
+    </bpmn:startEvent>
+  </bpmn:process>
+  <bpmn:error id="Error_0kc8m2d" name="Error_0m28lc7" />
+  <bpmn:escalation id="Escalation_3fklvi1" name="DELIVERY_CONFIRMED" escalationCode="DELIVERY_CONFIRMED" />
+  <bpmn:signal id="Signal_2rkgaku" name="DELIVERY_CONFIRMED" />
+  <bpmn:message id="Message_1i6vaof" name="Message_1i6vaof" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="DeliveryMangerApprovalSubProcess_1ey6vuy">
+      <bpmndi:BPMNShape id="Gateway_1wzk245_di" bpmnElement="Gateway_1wzk245" isMarkerVisible="true">
+        <dc:Bounds x="575" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18v0qi6_di" bpmnElement="Activity_130n4bv">
+        <dc:Bounds x="390" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0htaxy6_di" bpmnElement="Activity_1n5gqrb">
+        <dc:Bounds x="710" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14t9w98_di" bpmnElement="Activity_14t9w98" isExpanded="true">
+        <dc:Bounds x="620" y="240" width="570" height="310" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1vbcv2l_di" bpmnElement="Event_1vbcv2l">
+        <dc:Bounds x="662" y="322" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0iegdqg_di" bpmnElement="Activity_08ek54x">
+        <dc:Bounds x="850" y="300" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0okz1my_di" bpmnElement="Event_0okz1my">
+        <dc:Bounds x="1102" y="322" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0nyhr27_di" bpmnElement="Flow_0nyhr27">
+        <di:waypoint x="698" y="340" />
+        <di:waypoint x="850" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03e5kyb_di" bpmnElement="Flow_03e5kyb">
+        <di:waypoint x="950" y="340" />
+        <di:waypoint x="1102" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Gateway_095hlo8_di" bpmnElement="Gateway_095hlo8" isMarkerVisible="true">
+        <dc:Bounds x="1145" y="315" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0681gg9_di" bpmnElement="Event_1ba9g0u">
+        <dc:Bounds x="1282" y="322" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0g7gkna_di" bpmnElement="Event_1h5wnne">
+        <dc:Bounds x="1282" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1255" y="145" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qdfp5s_di" bpmnElement="Activity_1tgpres">
+        <dc:Bounds x="940" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0wnxjwb_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0gu4a2w_di" bpmnElement="Flow_0gu4a2w">
+        <di:waypoint x="625" y="120" />
+        <di:waypoint x="710" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="621" y="76" width="78" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rh88cg_di" bpmnElement="Flow_1rh88cg">
+        <di:waypoint x="810" y="120" />
+        <di:waypoint x="940" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ml9qyk_di" bpmnElement="Flow_0ml9qyk">
+        <di:waypoint x="490" y="120" />
+        <di:waypoint x="575" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1seh0t9_di" bpmnElement="Flow_1seh0t9">
+        <di:waypoint x="600" y="145" />
+        <di:waypoint x="600" y="340" />
+        <di:waypoint x="620" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vqj3st_di" bpmnElement="Flow_1vqj3st">
+        <di:waypoint x="1170" y="365" />
+        <di:waypoint x="1170" y="500" />
+        <di:waypoint x="440" y="500" />
+        <di:waypoint x="440" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1r8zv64_di" bpmnElement="Flow_1r8zv64">
+        <di:waypoint x="1170" y="240" />
+        <di:waypoint x="1170" y="220" />
+        <di:waypoint x="1190" y="220" />
+        <di:waypoint x="1190" y="249" />
+        <di:waypoint x="1170" y="249" />
+        <di:waypoint x="1170" y="315" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02pnta5_di" bpmnElement="Flow_02pnta5">
+        <di:waypoint x="1195" y="340" />
+        <di:waypoint x="1282" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ss2pej_di" bpmnElement="Flow_0ss2pej">
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="390" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_197qrxi_di" bpmnElement="Flow_197qrxi">
+        <di:waypoint x="1040" y="120" />
+        <di:waypoint x="1282" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

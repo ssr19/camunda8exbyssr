@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1winggt" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.49.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.9.0">
+  <bpmn:process id="car_deliverymanager_Activity_0zb3ubo" isExecutable="true">
+    <bpmn:startEvent id="Event_1kqdv2w">
+      <bpmn:outgoing>Flow_0euygdv</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_18ro93v" name="delivery manager decision">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:assignmentDefinition assignee="demo" />
+        <zeebe:formDefinition formId="deliverManagerApprovalForm_02mgubi" />
+        <zeebe:ioMapping>
+          <zeebe:output source="=status" target="status" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0euygdv</bpmn:incoming>
+      <bpmn:outgoing>Flow_0gla2mu</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1p1ur32">
+      <bpmn:incoming>Flow_0gla2mu</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0euygdv" sourceRef="Event_1kqdv2w" targetRef="Activity_18ro93v" />
+    <bpmn:sequenceFlow id="Flow_0gla2mu" sourceRef="Activity_18ro93v" targetRef="Event_1p1ur32" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="car_deliverymanager_Activity_0zb3ubo">
+      <bpmndi:BPMNShape id="Event_1p1ur32_di" bpmnElement="Event_1p1ur32">
+        <dc:Bounds x="492" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1kqdv2w_di" bpmnElement="Event_1kqdv2w">
+        <dc:Bounds x="200" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0evzjni_di" bpmnElement="Activity_18ro93v">
+        <dc:Bounds x="320" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0gla2mu_di" bpmnElement="Flow_0gla2mu">
+        <di:waypoint x="420" y="120" />
+        <di:waypoint x="492" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0euygdv_di" bpmnElement="Flow_0euygdv">
+        <di:waypoint x="236" y="120" />
+        <di:waypoint x="320" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

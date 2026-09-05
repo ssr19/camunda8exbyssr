@@ -1,0 +1,43 @@
+{
+  "components": [
+    {
+      "label": "Supervisor Approval",
+      "values": [
+        {
+          "label": "approved",
+          "value": "Delivery Supervisor Review"
+        },
+        {
+          "label": "cancelled",
+          "value": "delivery cancelled"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_1gnrb24",
+        "columns": null
+      },
+      "id": "Field_042ic7f",
+      "key": "status"
+    },
+    {
+      "label": "submit",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_0av8kvd",
+        "columns": null
+      },
+      "id": "Field_0ccug8l"
+    }
+  ],
+  "type": "default",
+  "id": "Delivery_supervisorForm_1eai15z",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.49.0"
+  },
+  "schemaVersion": 19
+}

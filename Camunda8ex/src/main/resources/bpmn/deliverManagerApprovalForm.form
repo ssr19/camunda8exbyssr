@@ -1,0 +1,43 @@
+{
+  "components": [
+    {
+      "label": "Delivery Manager Status",
+      "values": [
+        {
+          "label": "statusApprove",
+          "value": "Delivery Manager Approved"
+        },
+        {
+          "label": "statuscancel",
+          "value": "Delivery Manager cancelled"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_11pg0zy",
+        "columns": null
+      },
+      "id": "Field_15yobju",
+      "key": "status"
+    },
+    {
+      "label": "submit",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_06juvxd",
+        "columns": null
+      },
+      "id": "Field_0g201cw"
+    }
+  ],
+  "type": "default",
+  "id": "deliverManagerApprovalForm_02mgubi",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.49.0"
+  },
+  "schemaVersion": 19
+}

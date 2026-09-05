@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0zu06wz" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.49.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.9.0">
+  <decision id="Car_booking_delivery_durationDecision_0xrls55" name="Car Booking Rule">
+    <decisionTable id="DecisionTable_1sq9byb">
+      <input id="Input_1">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>carbrand</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1xquizm">
+        <inputExpression id="LiteralExpression_10xu5kd" typeRef="string">
+          <text>model</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" name="deliverydate" typeRef="yearMonthDuration" />
+      <rule id="DecisionRule_07q2b8x">
+        <inputEntry id="UnaryTests_1qkg2l7">
+          <text>"Maruthi"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gvcqxr">
+          <text>"baleno"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xjppgk">
+          <text>"P7M"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1xitmx7">
+        <inputEntry id="UnaryTests_0o8k3w7">
+          <text>"Tata"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x6wjus">
+          <text>"nexon"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0fs0vtk">
+          <text>"P2M"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0yf316s">
+        <inputEntry id="UnaryTests_1nslp6v">
+          <text>"Toyata"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wta7w7">
+          <text>"hilux"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kho7kp">
+          <text>"P9M"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_0xrls55_di" dmnElementRef="Car_booking_delivery_durationDecision_0xrls55">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
