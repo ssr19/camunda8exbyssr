@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_060z8a0" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.49.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.9.0">
+  <decision id="Decision_1epsoq0" name="Decision 1">
+    <decisionTable id="DecisionTable_12curuz">
+      <input id="Input_1">
+        <inputExpression id="InputExpression_1" typeRef="number">
+          <text>credit_score</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" name="status" typeRef="string" />
+      <rule id="DecisionRule_0xbomwb">
+        <inputEntry id="UnaryTests_0fshrh8">
+          <text>&lt; 600</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1m6tly3">
+          <text>rejected</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qhkcxp">
+        <inputEntry id="UnaryTests_0ckzxdm">
+          <text>&gt; 750</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_186ej1t">
+          <text>approved</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fi15af">
+        <inputEntry id="UnaryTests_0xfnimf">
+          <text>[600..750]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16wxbln">
+          <text>review</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_1epsoq0_di" dmnElementRef="Decision_1epsoq0">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
