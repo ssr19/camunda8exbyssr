@@ -1,0 +1,43 @@
+{
+  "components": [
+    {
+      "label": "Customer Approval",
+      "values": [
+        {
+          "label": "approved",
+          "value": "approved"
+        },
+        {
+          "label": "denied",
+          "value": "denied"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_0y942bi",
+        "columns": null
+      },
+      "id": "Field_1cb18as",
+      "key": "managerapproval"
+    },
+    {
+      "label": "Button",
+      "action": "submit",
+      "type": "button",
+      "layout": {
+        "row": "Row_0tm1h7p",
+        "columns": null
+      },
+      "id": "Field_0htyt60"
+    }
+  ],
+  "type": "default",
+  "id": "managerApprovalForm_0o7dp0x",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.49.0"
+  },
+  "schemaVersion": 19
+}
